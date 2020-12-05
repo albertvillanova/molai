@@ -19,15 +19,10 @@ Molecule AI.
 
 - Create the conda environment
   ```shell
-  conda create -y --name molai python=3.6
+  conda env create -f environment.yml
   ```
 
 - Activate the conda environment
   ```shell
   conda activate molai
-  ```
-
-- Install dependencies
-  ```shell
-  conda install -c conda-forge rdkit
   ```
