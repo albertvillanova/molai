@@ -75,3 +75,20 @@ optional arguments:
   -h, --help     show this help message and exit
   --smile SMILE  molecule smile
 ```
+
+
+## Run Flask application
+
+In production:
+```shell
+export FLASK_APP=app.py
+flask run --host=0.0.0.0
+```
+- By default, the production environment is set: `FLASK_ENV=production`
+
+In development:
+```shell
+export FLASK_ENV=development
+export FLASK_APP=app.py
+flask run
+```
