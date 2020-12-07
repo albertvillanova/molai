@@ -13,6 +13,7 @@ def cli():
 
     # Parser for "train" command:
     train_parser = subparsers.add_parser("train", help="train a model")
+    train_parser.add_argument("--model", help="model ID")
 
     # Parser for "evaluate" command:
     evaluate_parser = subparsers.add_parser("evaluate",
