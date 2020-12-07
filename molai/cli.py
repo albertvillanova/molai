@@ -18,6 +18,7 @@ def cli():
     # Parser for "evaluate" command:
     evaluate_parser = subparsers.add_parser("evaluate",
                                             help="evaluate a model")
+    evaluate_parser.add_argument("--model", help="model ID")
 
     # Parser for "predict" command:
     predict_parser = subparsers.add_parser(
@@ -33,7 +34,7 @@ def cli():
     if args.command == "train":
         main.train(model_id=args.model)
     elif args.command == "evaluate":
-        main.evaluate()
+        _ = main.evaluate(model_id=args.model)
     elif args.command == "predict":
         prediction = main.predict(smile=args.smile)
         print(f"Prediction = {prediction}")
