@@ -4,6 +4,7 @@ channels:
 dependencies:
   - python=3.6
   - rdkit
+  - pip=20.3.*
   - pip:
       - flask
       - pandas
