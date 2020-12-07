@@ -1,6 +1,7 @@
 """Models module."""
 
 import tensorflow as tf
+from tensorflow.keras.layers.experimental.preprocessing import TextVectorization
 
 from .io import read_model, write_model
 from .preprocessing import to_features
@@ -11,6 +12,13 @@ METRICS = [
     tf.keras.metrics.Recall(name='recall'),
     tf.keras.metrics.AUC(name='auc'),
 ]
+
+# vocab = list(set().union(*df["smiles"].map(set).to_list()))
+VOCAB = ['4', 'O', '#', '+', 'N', 'o', '(', 's', '5', '2', 'C', '=', 'n', 'r',
+         'c', '3', '6', 'F', 'S', '\\\\', 'l', '1', 'B', '/', 'H', '[', ')',
+         ']', '-']
+# max_smile_len = df["smiles"].str.len().max()
+MAX_SMILE_LEN = 74
 
 
 def load_model(model_id="1", mode="train"):
@@ -54,10 +62,42 @@ def create_model(model_id="1") -> tf.keras.Model:
         model.compile(optimizer='adam',
                       loss=tf.keras.losses.BinaryCrossentropy(
                           from_logits=False),  # from_logits=True
-                      metrics=METRICS)  # ["accuracy]
+                      metrics=METRICS)  # ["accuracy"]
         # TODO: fix TensorFlow: METRICS (differently from "accuracy") do not
         # work with logits (need sigmoid activation function)
+
+    elif model_id == "2":
+        encoder = create_encoder()
+        model = tf.keras.Sequential([
+            encoder,
+            tf.keras.layers.Embedding(
+                len(encoder.get_vocabulary()), 8,
+                # Use masking to handle the variable sequence lengths
+                mask_zero=True
+            ),
+            tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32)),
+            tf.keras.layers.Dense(8, activation='relu'),
+            tf.keras.layers.Dense(1, activation="sigmoid")
+        ])
+        model.compile(
+            optimizer="adam",  # tf.keras.optimizers.Adam(1e-4),
+            loss=tf.keras.losses.BinaryCrossentropy(from_logits=False),
+            # from_logits=True
+            metrics=METRICS  # ["accuracy"]
+        )
     return model
+
+
+def create_encoder():
+    encoder = TextVectorization(
+        max_tokens=len(VOCAB) + 2,  # padding-mask + oov
+        output_mode="int",
+        output_sequence_length=MAX_SMILE_LEN,
+        standardize=None,
+        split=None,
+    )
+    encoder.set_vocabulary(VOCAB)
+    return encoder
 
 
 def train_model(model, data, model_id="1"):
@@ -77,7 +117,11 @@ def train_model(model, data, model_id="1"):
         model.fit(data.train.x, data.train.y,
                   validation_data=(data.val.x, data.val.y),
                   batch_size=128, epochs=50)
-        return model  # history,
+    elif model_id == "2":
+        model.fit(data.train.x, data.train.y,
+                  validation_data=(data.val.x, data.val.y),
+                  batch_size=128, epochs=10)
+    return model  # history,
 
 
 def save_model(model, model_id="1"):

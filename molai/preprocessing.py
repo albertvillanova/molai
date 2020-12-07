@@ -71,6 +71,10 @@ def extract_features(df: pd.DataFrame,
                              list(fingerprint_features(x))).to_list(),
             index=df.index).rename(columns=lambda c: f"bit_{c}")
         d = d.join(df["P1"])
+    elif model_id == "2":
+        d = pd.DataFrame(df["smiles"].map(list).to_list(),
+                         index=df.index).fillna("<OOV>")
+        d = d.join(df["P1"])
     return d
 
 
