@@ -56,10 +56,11 @@ optional arguments:
 Train model: `molai train`
 ```shell
 molai train -h
-usage: molai train [-h]
+usage: molai train [-h] [--model MODEL]
 
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help     show this help message and exit
+  --model MODEL  model ID
 ```
 
 Evaluate model: `molai evaluate`
