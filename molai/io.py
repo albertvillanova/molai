@@ -44,7 +44,7 @@ def write_model(model: tf.keras.Model,
     None
     """
     path = MODELS_DIR / filename
-    path.parent.mkdir(parents=True, exist_ok=False)
+    path.parent.mkdir(parents=True, exist_ok=True)
     model.save_weights(path)
 
 
