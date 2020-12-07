@@ -3,6 +3,7 @@
 import tensorflow as tf
 
 from .io import read_model, write_model
+from .preprocessing import to_features
 
 # Metrics for imbalanced data, better than accuracy
 METRICS = [
@@ -25,10 +26,8 @@ def load_model(model_id="1", mode="train"):
     -------
     tf.keras.Model
     """
-    if mode == "train":
-        model = create_model(model_id=model_id)
-    elif mode == "evaluate":
-        model = create_model(model_id=model_id)
+    model = create_model(model_id=model_id)
+    if mode in ["evaluate", "predict"]:
         read_model(model, f"model-{model_id}")
     return model
 
@@ -102,3 +101,23 @@ def evaluate_model(model, data, model_id="1"):
         evaluation = model.evaluate(data.test.x, data.test.y, return_dict=True)
         print(evaluation)
     return evaluation
+
+
+def make_prediction(model, smile, model_id="1"):
+    """Make prediction for a given smile.
+
+    Parameters
+    ----------
+    model : tf.keras.Model
+    smile : str
+    model_id : str
+
+    Returns
+    -------
+    float
+    """
+    if model_id == "1":
+        features = to_features(smile, model_id=model_id)
+    prediction = model.predict([features])[0][0]
+    print(f"Prediction of the model: {prediction}")
+    return prediction

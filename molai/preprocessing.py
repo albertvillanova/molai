@@ -74,6 +74,12 @@ def extract_features(df: pd.DataFrame,
     return d
 
 
+def to_features(smile, model_id="1"):
+    if model_id == "1":
+        features = list(fingerprint_features(smile))
+    return features
+
+
 def subsample_data(df: pd.DataFrame,
                    random_state: int = RANDOM_STATE
                    ) -> pd.DataFrame:
