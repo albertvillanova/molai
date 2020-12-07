@@ -141,7 +141,7 @@ def evaluate_model(model, data, model_id="1"):
     -------
     dict
     """
-    if model_id == "1":
+    if model_id in ["1", "2"]:
         evaluation = model.evaluate(data.test.x, data.test.y, return_dict=True)
         print(evaluation)
     return evaluation
@@ -160,7 +160,7 @@ def make_prediction(model, smile, model_id="1"):
     -------
     float
     """
-    if model_id == "1":
+    if model_id in ["1", "2"]:
         features = to_features(smile, model_id=model_id)
     prediction = model.predict([features])[0][0]
     print(f"Prediction of the model: {prediction}")
