@@ -28,6 +28,11 @@ Molecule AI.
   ```
 
 
+## Setup
+
+Place your input data files in the `data` directory.
+
+
 ## Command Line Interface
 
 Use command line interface `molai`:
