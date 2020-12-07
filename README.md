@@ -85,7 +85,9 @@ optional arguments:
 ```
 
 
-## Run Flask application
+## Flask API
+
+###  Run Flask API
 
 In production:
 ```shell
@@ -99,4 +101,14 @@ In development:
 export FLASK_ENV=development
 export FLASK_APP=app.py
 flask run
+```
+
+### Use Flask API
+Use the endpoint `/predict` with the arguments:
+- `smile`: smile to be used for prediction
+- `model`: model ID
+
+Example:
+```
+/predict?smile=Cc1cccc(N2CCN(C(=O)C34CC5CC(CC(C5)C3)C4)CC2)c1C&model=1
 ```
