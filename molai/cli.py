@@ -31,7 +31,7 @@ def cli():
     args = parser.parse_args()
     # Call function
     if args.command == "train":
-        main.train()
+        main.train(model_id=args.model)
     elif args.command == "evaluate":
         main.evaluate()
     elif args.command == "predict":
