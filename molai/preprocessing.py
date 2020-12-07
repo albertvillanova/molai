@@ -81,6 +81,8 @@ def extract_features(df: pd.DataFrame,
 def to_features(smile, model_id="1"):
     if model_id == "1":
         features = list(fingerprint_features(smile))
+    if model_id == "2":
+        features = list(smile)
     return features
 
 
