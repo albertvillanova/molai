@@ -1,6 +1,7 @@
 """Main module."""
 
-from .models import evaluate_model, load_model, save_model, train_model
+from .models import evaluate_model, load_model, make_prediction, save_model, \
+    train_model
 from .preprocessing import load_data
 
 
@@ -25,6 +26,10 @@ def train(model_id="1"):
 def evaluate(model_id="1"):
     """Evaluate the model.
 
+    Parameters
+    ----------
+    model_id : str
+
     Returns
     -------
     dict
@@ -36,19 +41,21 @@ def evaluate(model_id="1"):
     return evaluation
 
 
-def predict(smile: str):
+def predict(smile, model_id="1"):
     """Predict the property `P1` for a given smile.
 
     Parameters
     ----------
     smile : str
         Molecule smile.
+    model_id : str
 
     Returns
     -------
-    str
+    float
         Prediction of the model.
     """
     print(f"Predict property 'P1' for smile '{smile}'")
-    prediction = smile
+    model = load_model(model_id=model_id, mode="predict")
+    prediction = make_prediction(model, smile, model_id=model_id)
     return prediction

@@ -27,6 +27,7 @@ def cli():
     )
     predict_parser.add_argument("--smile", required=True,
                                 help="molecule smile")
+    predict_parser.add_argument("--model", help="model ID")
 
     # Parse args
     args = parser.parse_args()
@@ -36,8 +37,8 @@ def cli():
     elif args.command == "evaluate":
         _ = main.evaluate(model_id=args.model)
     elif args.command == "predict":
-        prediction = main.predict(smile=args.smile)
-        print(f"Prediction = {prediction}")
+        _ = main.predict(smile=args.smile, model_id=args.model)
+        # print(f"Prediction = {prediction}")
 
 
 if __name__ == "__main__":
