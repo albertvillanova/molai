@@ -35,5 +35,5 @@ def predict(smile: str):
         Prediction of the model.
     """
     print(f"Predict property 'P1' for smile '{smile}'")
-    prediction = "PREDICTION"
+    prediction = smile
     return prediction
