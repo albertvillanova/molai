@@ -1,6 +1,6 @@
 import argparse
 
-import main
+from molai import main
 
 
 def cli():
