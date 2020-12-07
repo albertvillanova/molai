@@ -66,10 +66,11 @@ optional arguments:
 Evaluate model: `molai evaluate`
 ```shell
 molai evaluate -h
-usage: molai evaluate [-h]
+usage: molai evaluate [-h] [--model MODEL]
 
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help     show this help message and exit
+  --model MODEL  model ID
 ```
 
 Make a prediction: `molai predict`

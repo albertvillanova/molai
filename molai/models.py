@@ -2,7 +2,7 @@
 
 import tensorflow as tf
 
-from .io import write_model
+from .io import read_model, write_model
 
 # Metrics for imbalanced data, better than accuracy
 METRICS = [
@@ -27,6 +27,9 @@ def load_model(model_id="1", mode="train"):
     """
     if mode == "train":
         model = create_model(model_id=model_id)
+    elif mode == "evaluate":
+        model = create_model(model_id=model_id)
+        read_model(model, f"model-{model_id}")
     return model
 
 
@@ -80,3 +83,22 @@ def train_model(model, data, model_id="1"):
 
 def save_model(model, model_id="1"):
     write_model(model, f"model-{model_id}")
+
+
+def evaluate_model(model, data, model_id="1"):
+    """Evaluate the model with data.
+
+    Parameters
+    ----------
+    model : tf.keras.Model
+    data : SimpleNamespace
+    model_id : str
+
+    Returns
+    -------
+    dict
+    """
+    if model_id == "1":
+        evaluation = model.evaluate(data.test.x, data.test.y, return_dict=True)
+        print(evaluation)
+    return evaluation
