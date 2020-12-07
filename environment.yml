@@ -7,4 +7,5 @@ dependencies:
   - pip:
       - flask
       - pandas
+      - sklearn
       - tensorflow
