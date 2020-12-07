@@ -76,11 +76,12 @@ optional arguments:
 Make a prediction: `molai predict`
 ```shell
 molai predict -h
-usage: molai predict [-h] --smile SMILE
+usage: molai predict [-h] --smile SMILE [--model MODEL]
 
 optional arguments:
   -h, --help     show this help message and exit
   --smile SMILE  molecule smile
+  --model MODEL  model ID
 ```
 
 
