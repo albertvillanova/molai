@@ -128,3 +128,18 @@ docker run -dp 5000:5000 -v $PWD/data:/app/data -v $PWD/models:/app/models molai
 
 Visit the Flask API at the URL:
 http://0.0.0.0:5000/predict?smile=Cc1cccc(N2CCN(C(=O)C34CC5CC(CC(C5)C3)C4)CC2)c1C&model=2
+
+
+# Models
+
+Two preliminary models have been implemented: model-1 and model-2.
+
+Their respective performance metrics are:
+- model-1:
+  ```json
+  {"loss": 0.8287116885185242, "precision": 0.605042040348053, "recall": 0.7200000286102295, "auc": 0.6242777705192566}
+  ```
+- model-2:
+  ```json
+  {"loss": 0.6632762551307678, "precision": 0.6470588445663452, "recall": 0.6600000262260437, "auc": 0.6526111364364624}
+  ```
