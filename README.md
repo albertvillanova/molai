@@ -112,3 +112,19 @@ Example:
 ```
 /predict?smile=Cc1cccc(N2CCN(C(=O)C34CC5CC(CC(C5)C3)C4)CC2)c1C&model=1
 ```
+
+
+## Docker
+
+Build the Docker container image from the project root directory:
+```shell
+docker build -t molai .
+```
+
+Run the Docker container:
+```shell
+docker run -dp 5000:5000 -v $PWD/data:/app/data -v $PWD/models:/app/models molai
+```
+
+Visit the Flask API at the URL:
+http://0.0.0.0:5000/predict?smile=Cc1cccc(N2CCN(C(=O)C34CC5CC(CC(C5)C3)C4)CC2)c1C&model=2
